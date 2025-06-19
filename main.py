@@ -23,3 +23,7 @@ async def inbound(request: Request):
 
     # Future: lookup decoy, alert customer, log event
     return JSONResponse(content={"status": "ok"}, status_code=200)
+
+@app.get("/")
+def health_check():
+    return {"status": "ok"}
