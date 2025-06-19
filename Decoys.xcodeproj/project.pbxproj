@@ -1,0 +1,79 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXFileReference section */
+		F3C4F1512E04C236000B1BCB /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
+		F3C4F1522E04C25E000B1BCB /* requirements.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = requirements.txt; sourceTree = "<group>"; };
+		F3C4F1532E04C275000B1BCB /* render.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = render.yaml; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		F3C4F14A2E04C22A000B1BCB = {
+			isa = PBXGroup;
+			children = (
+				F3C4F1512E04C236000B1BCB /* main.py */,
+				F3C4F1522E04C25E000B1BCB /* requirements.txt */,
+				F3C4F1532E04C275000B1BCB /* render.yaml */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		F3C4F14B2E04C22A000B1BCB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1640;
+			};
+			buildConfigurationList = F3C4F14E2E04C22A000B1BCB /* Build configuration list for PBXProject "Decoys" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F3C4F14A2E04C22A000B1BCB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		F3C4F14F2E04C22A000B1BCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		F3C4F1502E04C22A000B1BCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F3C4F14E2E04C22A000B1BCB /* Build configuration list for PBXProject "Decoys" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3C4F14F2E04C22A000B1BCB /* Debug */,
+				F3C4F1502E04C22A000B1BCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F3C4F14B2E04C22A000B1BCB /* Project object */;
+}
