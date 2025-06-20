@@ -55,5 +55,3 @@ This may indicate a document leak or unauthorized access."""
         print("❌ Failed to send alert:", response.text)
     else:
         print(f"✅ Alert sent to {to_email}")
-
-send
