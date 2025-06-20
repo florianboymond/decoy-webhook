@@ -47,9 +47,8 @@ async def inbound(request: Request):
         r = requests.get(message_url, auth=("api", mg_api))
         if r.status_code == 200:
             eml_data = r.content
-                if len(eml_data) < 100:
-    print("⚠️ .eml file seems suspiciously small. Might not contain full content.")
-
+            if len(eml_data) < 100:
+                print("⚠️ .eml file seems suspiciously small. Might not contain full content.")
             print(f"✅ .eml fetched, size: {len(eml_data)} bytes")
         else:
             print("⚠️ Failed to fetch .eml from Mailgun:", r.text)
