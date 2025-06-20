@@ -26,6 +26,7 @@ def send_email_alert(to_email, decoy_email, sender, ip, geo, subject, body_text,
             "type": "text/plain",
             "value": f"""Heads up — your decoy email {decoy_email} received a message.
 
+This may indicate a document leak or unauthorized access.
 From: {sender}
 IP Address: {ip}
 Subject: {subject}
@@ -33,9 +34,9 @@ Location: {geo}
 Time: {datetime.utcnow().isoformat()}
 
 Body Preview:
-{body_text[:500]}
+{body_text[:5000]}
 
-This may indicate a document leak or unauthorized access."""
+"""
         }]
     }
 
