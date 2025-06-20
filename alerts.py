@@ -1,16 +1,27 @@
 import os
 import requests
+import base64
 from datetime import datetime
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
-def send_email_alert(to_email, decoy_email, sender, ip, subject):
+def send_email_alert(to_email, decoy_email, sender, ip, subject, body_text, eml_data=None):
+    # Attach the original .eml if available
+    attachments = []
+    if eml_data:
+        attachments.append({
+            "content": base64.b64encode(eml_data).decode(),
+            "type": "message/rfc822",
+            "filename": f"{decoy_email.replace('@', '_')}.eml",
+            "disposition": "attachment"
+        })
+
     message = {
         "personalizations": [{
             "to": [{"email": to_email}],
             "subject": f"Your decoy {decoy_email} was triggered"
         }],
-        "from": {"email": "florianboymond@gmail.com", "name": "Decoys Alerts"},
+        "from": {"email": "alerts@decoys.com", "name": "Decoys Leak Monitor"},
         "content": [{
             "type": "text/plain",
             "value": f"""Heads up — your decoy email {decoy_email} received a message.
@@ -20,8 +31,12 @@ IP Address: {ip}
 Subject: {subject}
 Time: {datetime.utcnow().isoformat()}
 
+Body Preview:
+{body_text[:500]}
+
 This may indicate a document leak or unauthorized access."""
-        }]
+        }],
+        "attachments": attachments
     }
 
     response = requests.post(
