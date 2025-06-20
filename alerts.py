@@ -21,7 +21,7 @@ def send_email_alert(to_email, decoy_email, sender, ip, geo, subject, body_text,
             "to": [{"email": to_email}],
             "subject": f"Your decoy {decoy_email} was triggered"
         }],
-        "from": {"email": "alerts@decoys.com", "name": "Decoys Leak Monitor"},
+        "from": {"email": "florianboymond@gmail.com", "name": "Decoys Alerts"},
         "content": [{
             "type": "text/plain",
             "value": f"""Heads up — your decoy email {decoy_email} received a message.
