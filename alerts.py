@@ -34,7 +34,7 @@ Location: {geo}
 Time: {datetime.utcnow().isoformat()}
 
 Body Preview:
-{body_text[:5000]}
+{body_text[:5000] if body_text else "[No body text available]"}
 
 """
         }]
