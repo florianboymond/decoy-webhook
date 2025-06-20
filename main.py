@@ -8,6 +8,19 @@ import requests
 
 app = FastAPI()
 
+def lookup_geo(ip):
+    try:
+        response = requests.get(f"https://ipapi.co/{ip}/json")
+        if response.status_code == 200:
+            data = response.json()
+            return f"{data.get('city', '')}, {data.get('region', '')}, {data.get('country_name', '')}".strip(", ")
+        else:
+            return "Unknown location"
+    except Exception as e:
+        print(f"Geo lookup error: {e}")
+        return "Unknown location"
+
+
 @app.post("/webhook/inbound")
 async def inbound(request: Request):
     form = await request.form()
@@ -17,6 +30,7 @@ async def inbound(request: Request):
     subject = form.get("subject")
     body = form.get("body-plain")
     ip = form.get("X-Mailgun-Incoming-IP") or request.client.host
+    geo = lookup_geo(ip)
     message_url = form.get("message-url")
 
     print("📨 Decoy hit detected!")
@@ -40,12 +54,25 @@ async def inbound(request: Request):
     if match:
         customer_email, use_case = match
         await log_event(recipient, sender, ip, subject)
-        send_email_alert(customer_email, recipient, sender, ip, subject, body, eml_data)
+        send_email_alert(customer_email, recipient, sender, ip, geo, subject, body, eml_data)
         print(f"✅ Alert sent to {customer_email} for decoy: {recipient} ({use_case})")
     else:
         print(f"⚠️ No match for decoy: {recipient}")
 
     return JSONResponse(content={"status": "ok"}, status_code=200)
+def lookup_geo(ip):
+    try:
+        response = requests.get(f"https://ipapi.co/{ip}/json")
+        if response.status_code == 200:
+            data = response.json()
+            return f"{data.get('city', '')}, {data.get('region', '')}, {data.get('country_name', '')}".strip(", ")
+        else:
+            return "Unknown location"
+    except Exception as e:
+        print(f"Geo lookup error: {e}")
+        return "Unknown location"
+
+
 
 @app.get("/")
 def health_check():

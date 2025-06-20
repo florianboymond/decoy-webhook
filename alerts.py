@@ -5,7 +5,7 @@ from datetime import datetime
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
-def send_email_alert(to_email, decoy_email, sender, ip, subject, body_text, eml_data=None):
+def send_email_alert(to_email, decoy_email, sender, ip, geo, subject, body_text, eml_data=None):
     # Attach the original .eml if available
     attachments = []
     if eml_data:
@@ -29,16 +29,18 @@ def send_email_alert(to_email, decoy_email, sender, ip, subject, body_text, eml_
 From: {sender}
 IP Address: {ip}
 Subject: {subject}
+Location: {geo}
 Time: {datetime.utcnow().isoformat()}
 
 Body Preview:
 {body_text[:500]}
 
 This may indicate a document leak or unauthorized access."""
-        }],
-if attachments:
-    message["attachments"] = attachments
+        }]
     }
+
+    if attachments:
+        message["attachments"] = attachments
 
     response = requests.post(
         "https://api.sendgrid.com/v3/mail/send",
@@ -53,4 +55,5 @@ if attachments:
         print("❌ Failed to send alert:", response.text)
     else:
         print(f"✅ Alert sent to {to_email}")
+
 send
