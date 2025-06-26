@@ -1,12 +1,38 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from db import find_customer, log_event
+from fastapi.middleware.cors import CORSMiddleware
+from db import find_customer, log_event, init_db
 from alerts import send_email_alert
+from config import config
+from api.stats import router as stats_router
+from api.decoys import router as decoys_router  
+from api.export import router as export_router
+from auth import router as auth_router
 import datetime
 import os
 import requests
 
 app = FastAPI()
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Temporarily allow all origins for debugging
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
+
+# Include API routers
+app.include_router(auth_router)
+app.include_router(stats_router)
+app.include_router(decoys_router)
+app.include_router(export_router)
+
+# Initialize database on startup
+@app.on_event("startup")
+async def startup_event():
+    await init_db()
 
 def lookup_geo(ip):
     try:
